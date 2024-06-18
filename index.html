@@ -124,6 +124,8 @@
             <div class="grid-item"><a href="https://scholar.google.com/citations?user=7u0TYgIAAAAJ&hl=zh-CN&oi=ao">Hongtao Wu</a><sup>1*&dagger;</sup>,</div>
             <div class="grid-item"><a href="https://cse.hkust.edu.hk/~songguo/">Song Guo</a><sup>2*</sup>,</div>
             <div class="grid-item"><a href="https://scholar.google.com/citations?hl=zh-CN&user=i8wNtSgAAAAJ">Yuxiao Liu</a><sup>1</sup>,</div>
+        </div>
+        <div class="mobile-author-container-2">
             <div class="grid-item"><a href="Gen-IRASim.github.io">Chilam Cheang</a><sup>1</sup>,</div>
             <div class="grid-item"><a href="https://www.taokong.org/">Tao Kong</a><sup>1</sup></div>
         </div>
@@ -150,7 +152,7 @@
                 To validate the effectiveness of our method, we create a new benchmark, IRASim Benchmark, based on three real-robot datasets and perform extensive experiments on the benchmark.
                 Results show that IRASim outperforms all the baseline methods and is more preferable in human evaluations.
                 We hope that IRASim can serve as an effective and scalable approach to enhance robot learning in the real world.
-                To promote research for generative real-robot action simulators, we open-source the code, benchmark and checkpoints at https://gen-irasim.github.io/.
+                To promote research for generative real-robot action simulators, we open-source the code, benchmark and checkpoints.
             </p>
         </div>
     </div>
@@ -159,16 +161,19 @@
 <div id="overview">
 
     <h1>Video Generation as Robot Simulators</h1>
-
     <p>
-        We cast real-world humanoid control as a data modeling problem over a large collections of sensorimotor trajectories. Like in language, we train a general transformer model to autoregressively predict shifted input sequences. In contrast to language, the nature of data in robotics is different. It is high-dimensional, contains multiple sensory modalities, and actions. We tokenize the input trajectories and train a causal transformer model to predict shifted tokens. Importantly, we predict complete input sequences, including both sensory and action tokens. In other words, we are modeling the joint data distribution as opposed to the conditional action distribution.
+        We create an interactive real-robot action simulator that can simulate robot trajectories in a way that is both accurate and visually indistinguishable from the real world.
+        With such a simulator, agents can interactively control virtual robots to interact with diverse objects in various scenes in the simulator.
+        It enables robots to improve policies by learning from simulated experiences without safety concerns and maintenance efforts.
+        And the improved policy can consequently produce a large amount of simulated but realistic "real-robot" trajectories for training.
+        Furthermore, the simulator can be leveraged as a dynamics model for imagining outcomes of different proposed candidate actions for model-based reinforcement learning.
     </p>
 
     <div class="barplot">
         <div class="image_container">
             <img src="myassets/images/intro.png">
             <div class="caption" style="margin-top: 0.0vw">
-                <p> Overview of IRASim. IRASim is an interactive real-robot action simulator that allows agents to input an action trajectory to control the "real robot" in an initial frame.</p>
+                <p>Figure 1: Overview of IRASim. IRASim is an interactive real-robot action simulator that allows agents to input an action trajectory to control the "real robot" in an initial frame.</p>
             </div>
         </div>
     </div>
@@ -176,38 +181,142 @@
     <h1>Trajectory-conditioned Video Generation</h1>
 
     <p>
-        In the discussion so far we have assumed that each trajectory is a sequence of observations and actions. Next, we show how our framework can be generalized to sequences with missing modalities, like trajectories extracted from human videos that do not have actions. Suppose we are given a trajectory of observations without the actions. Our key insight is that we can treat a trajectory without actions like a regular trajectory with actions masked. This trajectory now has the same format as our regular trajectories and thus can be processed in a unified way. We ignore the loss for the predictions that correspond to the masked part of inputs.
+        IRASim is a novel method that generates extremely realistic videos of a robot that executes an action trajectory, starting from a given initial frame.
+        We refer to this task as the <em>trajectory-to-video</em> task.
+        And in this project, we focus on predicting videos of robot arms completing manipulation tasks.
+        The trajectory-to-video task differs from the general text-to-video task. While various videos can meet the text condition in the text-to-video task, the predicted video in our trajectory-to-video task must strictly and accurately follow the input trajectory.
+        More importantly, a challenge of this task is that each action in the trajectory provides an exact description of the robot's movement in each frame.
+        This contrasts with the text-to-video task, where textual descriptions offer a general condition without specific frame-by-frame details.
+        Another challenge is that the trajectory-to-video task features rich robot-object interactions, which must adhere to physical laws. For instance, when the robot picks up a bowl and moves, the bowl should move together with the robot. In terms of data, training a trajectory-to-video model only requires trajectory-video pairs, which is very scalable -- even failure trajectories can be used for training.
+    </p>
+    <p>
+        To tackle the trajectory-to-video task, IRASim leverages an innovative frame-level condition method
+        to achieve precise frame-by-frame alignment between actions and video frames. We use the powerful
+        Diffusion Transformer as the backbone of IRASim to improve the modeling of robot-object
+        interactions. IRASim can generate realistic videos of high-resolution (up to 288 × 512). To generate
+        long-horizon videos, IRASim can be rolled out in an autoregressive manner and maintain consistency
+        between the generated video clips.
+
     </p>
 
     <div class="barplot">
         <div class="image_container">
             <img src="myassets/images/network.png">
             <div class="caption" style="margin-top: 0.0vw">
-                <p>Network Architecture of IRASim. (a) shows the general diffusion transformer architecture of IRASim. The input to IRASim includes the initial frame and the entire trajectory. (b) Frame-level adaptation (Frame-Ada). (c) Video-level adaptation (Video-Ada).
+                <p>
+                    Figure 2: Network Architecture of IRASim. (a) shows the general diffusion transformer architecture of IRASim. The input to IRASim includes the initial frame and the entire trajectory. (b) Frame-level adaptation (Frame-Ada). (c) Video-level adaptation (Video-Ada).
                 </p>
             </div>
         </div>
     </div>
 
     <h1>Short Trajectory Results</h1>
+    <p>
+        <strong>Uncurated qualitative results for short trajectories are shown below.</strong>
+        Click the <em>Resample</em> button to display another random subset from 100 unpicked samples.
+        All samples are from the test set, with each video being 16 frames long at 4 fps. 
+        The video on the left is generated by IRASim, while the video on the right is the ground truth.
+    </p>
     </br>
     <div id="uncurated_short_video_grid"></div>
     <div class="button-container">
-        <div class="button" onclick="sample_short_videos()">Another Set</div>
+        <div class="button" onclick="sample_short_videos()">Resample</div>
     </div>
+    <p>
+        <strong>Quantitative results are shown in Tab. 1.</strong>
+        IRASim-Frame-Ada performs the best among all the comparing methods in terms of Latent L2 loss and PSNR. 
+        It achieves the highest SSIM on RT-1 and Bridge and is comparable with the best baseline method LVDM on Language-Table. 
+        In all three datasets, it outperforms IRASim-Video-Ada in all the computation-based metrics. 
+        This indicates that frame-level condition enhances consistency between each frame and its corresponding action in the trajectory, as shown in Fig. 7 in the Appendix A.1 in our paper. 
+        IRASim-Frame-Ada also surpasses the two baseline methods based on U-Nets on all three datasets on Latent L2 loss. 
+        This demonstrates the superiority of transformer-based model, especially in handling complex 3D actions and robot-object interaction. 
+        VDM fails to generate realistic videos despite consuming more computation costs during training. 
+        This indicates the effectiveness of performing diffusion in latent space.
+    </p>
+    <div class="barplot">
+        <div class="image_container">
+            <div class="caption" style="margin-top: 0vw; margin-bottom: 0vw; text-align: center;">
+                <caption>
+                    Table 1: Quantitative Results on Video Generation of Short Trajectories.
+                </caption>
+            </div>
+            <img src="myassets/images/short_table.png" alt="Quantitative Results on Video Generation of Short Trajectories" style="width: 100%;">
+        </div>
+    </div>
+    
+    <p>
+    <strong>Human Preference Evaluation.</strong> 
+    We also perform a user study to help understand human preferences between IRASim-Frame-Ada and other methods. 
+    We juxtapose the videos of predicted by IRASim-Frame-Ada and the comparing method and ask humans which one they prefer. 
+    The ground-truth is also provided as a reference. IRASim-Frame-Ada beats all the comparing methods in all three datasets (Fig. 3). 
+    This result aligns with the Latent L2 loss which justifies the reason for using Latent L2 loss as one of the primary evaluation metrics.
+    </p>
+    <div class="barplot">
+        <div class="image_container">
+            <img src="myassets/images/human.png">
+            <div class="caption" style="margin-top: 0.0vw; margin-bottom: 0vw;">
+                <p>
+                    Figure 3: Human Preference Evaluation. We perform a user study to evaluate the human preference between IRASim-Frame-Ada and other baseline methods.
+                </p>
+            </div>
+        </div>
+    </div>
+    
 
     <h1>Long Trajectory Results</h1>
+    <p>
+        <strong>Uncurated qualitative results for long trajectories are shown below.</strong>
+        Click the <em>Resample</em> button to display another random subset from 100 unpicked episodes.
+        Click the <em>Longest Videos</em> button to display the six longest videos from the 100 unpicked episodes.
+        Hover over on these longest videos to see their frame count.
+        All episodes are from the test set with 4 fps. 
+        The average frame counts of the videos are 47.04, 36.43, and 24.57 for RT-1, Bridge, and Language-Table, respectively.
+        The video on the left is generated by IRASim, while the video on the right is the ground truth. 
+        Videos show that it retains the powerful capability of generating visually realistic and accurate videos as in the short trajectory setting.  
+    </p>
     </br>
     <div id="uncurated_long_video_grid"></div>
     <div class="button-container">
-        <div class="button" onclick="sample_long_videos()">Another Set</div>
+        <div class="button" onclick="sample_long_videos()">Resample</div>
+        <div class="button" onclick="sample_longest_videos()">Longest Videos</div>
     </div>
 
-    
-    
     <p>
-        Our approach motivates building a dataset of trajectories for training our model. Our dataset includes trajectories from four different sources: (i) prior neural network policies, (ii) model-based controllers, (iii) human motion capture, and (iv) human videos from YouTube. An illustration of different data sources is shown below. Different sources strike a different tradeoff between the richness of information and scale. For example, trajectories from neural network policies provide complete information including the actions. Trajectories from the model-based controller contain observations from the same robot morphology without the actions. MoCap trajectories of humans come from a different morphology without the actions. Finally, trajectories recovered from YouTube videos of humans can be seen as large scale but noisy MoCap.
+        <strong>Quantitative results are shown in Tab. 2.</strong>
+        We compare IRASim with the best baseline method LVDM. IRASim-Frame-Ada consistently outperforms the comparison methods in all three
+        datasets on Latent L2 loss and PSNR.  
     </p>
+
+    <div class="barplot">
+        <div class="image_container">
+            <div class="caption" style="margin-top: 0.0vw; margin-bottom: 0vw; text-align: center;">
+                <caption>
+                    Table 2: Quantitative Results on Video Generation of Long Trajectories.
+                </caption>
+            </div>
+            <img src="myassets/images/long_table.png">
+        </div>
+    </div>
+
+    <h1>Scaling</h1>
+    <p>
+        We follow DiT and train IRASim-Frame-Ada of different model sizes ranging from 33M to 679M. 
+        Results are shown shown Fig. 4. 
+        On all three datasets, IRASim scales elegantly with the increase of model sizes and training steps. 
+        This indicates strong potential for increasing model sizes and training steps to further improve the performance.
+    </p>
+    <div class="barplot">
+        <div class="image_container">
+            <img src="myassets/images/scale.png">
+            <div class="caption" style="margin-top: 0.0vw; margin-bottom: 0vw; text-align: center;">
+                <p>
+                    Figure 4: Scaling. IRASim scales elegantly with the increase of model sizes and training steps
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <h1>Application</h1>
 
     <div class="barplot">
         <div class="image_container">
