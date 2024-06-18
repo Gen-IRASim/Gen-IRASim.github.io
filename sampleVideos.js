@@ -5,9 +5,9 @@ async function sample_short_videos() {
     videoGrid.innerHTML = '';
 
     const folders = [
-        { pred: 'myassets/videos/uncurated/pred/sample/rt1', true: 'myassets/videos/uncurated/true/sample/rt1', overlay: 'RT-1' },
-        { pred: 'myassets/videos/uncurated/pred/sample/bridge', true: 'myassets/videos/uncurated/true/sample/bridge', overlay: 'Bridge' },
-        { pred: 'myassets/videos/uncurated/pred/sample/languagetable', true: 'myassets/videos/uncurated/true/sample/languagetable', overlay: 'Language-Table' }
+        { pred: 'assets/videos/uncurated/pred/sample/rt1', true: 'assets/videos/uncurated/true/sample/rt1', overlay: 'RT-1' },
+        { pred: 'assets/videos/uncurated/pred/sample/bridge', true: 'assets/videos/uncurated/true/sample/bridge', overlay: 'Bridge' },
+        { pred: 'assets/videos/uncurated/pred/sample/languagetable', true: 'assets/videos/uncurated/true/sample/languagetable', overlay: 'Language-Table' }
     ];
     const totalVideos = 36;
 
@@ -59,9 +59,9 @@ async function sample_long_videos() {
     videoGrid.innerHTML = '';
 
     const folders = [
-        { pred: 'myassets/videos/uncurated/pred/episode/rt1', true: 'myassets/videos/uncurated/true/episode/rt1', overlay: 'RT-1' },
-        { pred: 'myassets/videos/uncurated/pred/episode/bridge', true: 'myassets/videos/uncurated/true/episode/bridge', overlay: 'Bridge' },
-        { pred: 'myassets/videos/uncurated/pred/episode/languagetable', true: 'myassets/videos/uncurated/true/episode/languagetable', overlay: 'Language-Table' }
+        { pred: 'assets/videos/uncurated/pred/episode/rt1', true: 'assets/videos/uncurated/true/episode/rt1', overlay: 'RT-1' },
+        { pred: 'assets/videos/uncurated/pred/episode/bridge', true: 'assets/videos/uncurated/true/episode/bridge', overlay: 'Bridge' },
+        { pred: 'assets/videos/uncurated/pred/episode/languagetable', true: 'assets/videos/uncurated/true/episode/languagetable', overlay: 'Language-Table' }
     ];
     const totalVideos = 36;
 
@@ -120,8 +120,8 @@ async function sample_longest_videos() {
 
     const folders = [
         {
-            pred: 'myassets/videos/uncurated/pred/episode/rt1',
-            true: 'myassets/videos/uncurated/true/episode/rt1',
+            pred: 'assets/videos/uncurated/pred/episode/rt1',
+            true: 'assets/videos/uncurated/true/episode/rt1',
             overlay: 'RT-1',
             frames: [
                 { idx: 75, frame_count: 153 },
@@ -133,8 +133,8 @@ async function sample_longest_videos() {
             ]
         },
         {
-            pred: 'myassets/videos/uncurated/pred/episode/bridge',
-            true: 'myassets/videos/uncurated/true/episode/bridge',
+            pred: 'assets/videos/uncurated/pred/episode/bridge',
+            true: 'assets/videos/uncurated/true/episode/bridge',
             overlay: 'Bridge',
             frames: [
                 { idx: 79, frame_count: 79 },
@@ -146,8 +146,8 @@ async function sample_longest_videos() {
             ]
         },
         {
-            pred: 'myassets/videos/uncurated/pred/episode/languagetable',
-            true: 'myassets/videos/uncurated/true/episode/languagetable',
+            pred: 'assets/videos/uncurated/pred/episode/languagetable',
+            true: 'assets/videos/uncurated/true/episode/languagetable',
             overlay: 'Language-Table',
             frames: [
                 { idx: 38, frame_count: 48 },
