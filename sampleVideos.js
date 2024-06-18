@@ -185,8 +185,8 @@ async function sample_longest_videos() {
             console.log(`Attempting to load prediction video from: ${predVideoPath}`); // 调试信息
             console.log(`Attempting to load ground-truth video from: ${trueVideoPath}`); // 调试信息
 
-            const videoWrapperPred = createVideoElement(predVideoPath, `${folder.overlay} Prediction   ${frame.frame_count} frames`);
-            const videoWrapperTrue = createVideoElement(trueVideoPath, `${folder.overlay} Ground-truth ${frame.frame_count} frames`);
+            const videoWrapperPred = createVideoElement(predVideoPath, `${folder.overlay} Prediction <br> ${frame.frame_count} frames`);
+            const videoWrapperTrue = createVideoElement(trueVideoPath, `${folder.overlay} Ground-truth <br> ${frame.frame_count} frames`);
 
             videoGrid.appendChild(videoWrapperPred);
             videoGrid.appendChild(videoWrapperTrue);

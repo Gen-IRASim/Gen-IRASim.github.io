@@ -40,6 +40,71 @@ body {
     transition: transform 0.5s ease; /* Smooth transition for dimming */
 }
 
+#app_2D_video_grid {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#app_2D_video_grid > .video_wrapper {
+    width: 50%;
+    padding: 1px; /* 添加内边距 */
+    box-sizing: border-box; /* 确保内边距包含在宽度内 */
+}
+
+#app_2D_video_grid > .video_wrapper > .video_container {
+    display: grid;
+    position: relative;
+    overflow: hidden;
+}
+
+#app_2D_video_grid > .video_wrapper > .video_container > video {
+    width: 100%;
+    height: auto;
+    grid-column: 1;
+    grid-row: 1;
+    margin: 1px;
+    padding: 0;
+    display: block; /* Ensures the video fills its container */
+    transition: transform 0.5s ease; /* Smooth transition for dimming */
+}
+
+
+
+#app_3D_video_grid {
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#app_3D_video_grid > .video_wrapper {
+    width: 25%;
+    padding: 1px; /* 添加内边距 */
+    box-sizing: border-box; /* 确保内边距包含在宽度内 */
+}
+
+#app_3D_video_grid > .video_wrapper > .video_container {
+    display: grid;
+    position: relative;
+    overflow: hidden;
+}
+
+#app_3D_video_grid > .video_wrapper > .video_container > video {
+    width: 100%;
+    height: auto;
+    grid-column: 1;
+    grid-row: 1;
+    margin: 1px;
+    padding: 0;
+    display: block; /* Ensures the video fills its container */
+    transition: transform 0.5s ease; /* Smooth transition for dimming */
+}
 
 #uncurated_short_video_grid {
     width: 75%;
@@ -177,7 +242,7 @@ body {
     color: #2f2f2f;
     font-family: "Avenir Next",Gelasio,Helvetica,sans-serif;
     font-weight: normal;
-    font-size: 1.0vw;
+    font-size: 1.2vw;
     width: 75%;
     padding-top: 2.7vw;
     margin-left: auto;
@@ -235,6 +300,7 @@ body {
     text-align: center;
     padding-right: 0.3vw;
     padding-left: 0.3vw;
+    font-size: 1.2vw;
 }
 
 .contribution {
@@ -272,14 +338,14 @@ body {
     font-family: Gelasio,"Varela Round",Helvetica,sans-serif;
     border-radius: 0.5vw;
     width: 6vw;
-    height: 2.2vw;
+    height: 2.5vw;
     margin-left: 0.4vw;
     margin-right: 0.4vw;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.9vw;
+    font-size: 1.0vw;
     horiz-align:right;
     vertical-align:middle;
     border: solid 0px transparent;
@@ -397,7 +463,7 @@ hr.rounded {
     color: #000;
     font-family: Charter, Georgia, serif;
     font-weight: normal;
-    font-size: 1.04vw;
+    font-size: 1.2vw;
     line-height: 1.4;
     width: 75%;
     margin-left: auto;
@@ -455,8 +521,8 @@ hr.rounded {
 }
 
 #overview  > .image_container {
-    max-width: 75%;
-    max-height: 75%;
+    max-width: 100%;
+    max-height: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -688,8 +754,7 @@ hr.rounded {
 }
 
 .barplot > .image_container {
-    max-width: 44%;
-    max-height: 22%;
+    max-width: 60%;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -710,10 +775,9 @@ hr.rounded {
 
 .barplot > .image_container > .caption > p {
     width: 100% !important;
-    #color: rgb(0, 0, 0) !important;
     color: rgba(0, 0, 0, 0.5) !important;
     font-family: "Avenir Next",Gelasio,Helvetica,sans-serif !important;
-    font-size: 0.8vw !important;
+    font-size: 1.0vw !important;
     font-weight: 500 !important;
 }
 
@@ -909,7 +973,7 @@ hr.rounded {
 
 #overview > .bibtex {
     font-family: "Courier", monospace;
-    font-size: 0.45vw !important;
+    font-size: 0.9vw !important;
     color: #2f2f2f;
     background-color: #f2f2f2;
     border: 5px;
@@ -932,11 +996,11 @@ hr.rounded {
 }
 
 #overview > .dark_mode > p {
-    color: rgba(255, 255, 255, 0.92);  !important;
+    color: rgba(255, 255, 255, 0.92); 
 }
 
 #overview > .dark_mode > h1 {
-    color: rgba(255, 255, 255, 0.92);  !important;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 /* Video slider */
