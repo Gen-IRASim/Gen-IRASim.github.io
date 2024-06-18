@@ -75,7 +75,7 @@ body {
 
 
 #app_3D_video_grid {
-    width: 75%;
+    width: 60%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -84,7 +84,7 @@ body {
 }
 
 #app_3D_video_grid > .video_wrapper {
-    width: 25%;
+    width: 50%;
     padding: 1px; /* 添加内边距 */
     box-sizing: border-box; /* 确保内边距包含在宽度内 */
 }
@@ -350,6 +350,30 @@ body {
     vertical-align:middle;
     border: solid 0px transparent;
     background-color: #f2f2f2;
+}
+
+.button_click {
+    color: #2f2f2f;
+    font-family: Gelasio,"Varela Round",Helvetica,sans-serif;
+    border-radius: 0.5vw;
+    width: 8vw;
+    height: 2.5vw;
+    margin-left: 0.4vw;
+    margin-right: 0.4vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.0vw;
+    horiz-align:right;
+    vertical-align:middle;
+    border: solid 0px transparent;
+    background-color: #f2f2f2;
+}
+
+.button_click:hover {
+    background-color: #f2f2f2;
+    filter: brightness(97%);
 }
 
 .button:hover {
