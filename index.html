@@ -268,12 +268,12 @@
         <div class="button_click_long" style="padding: 10px 20px; margin: -30px 20px 20px 20px;" onclick="sample_longest_videos()">Click to View Very Long Videos</div>
     </div>
     <div id="uncurated_long_video_grid"></div>
-
+    <br>
 
     <p>
         <strong>Quantitative results are shown in Tab. 2.</strong>
-        We compare IRASim with the best baseline method LVDM. IRASim-Frame-Ada consistently outperforms the comparison methods in all three
-        datasets on Latent L2 loss and PSNR.  
+        We compare IRASim with the best baseline method LVDM. 
+        IRASim-Frame-Ada consistently outperforms the comparison methods in all three datasets on Latent L2 loss and PSNR.  
     </p>
 
     <div class="barplot">
@@ -290,7 +290,7 @@
     <h1 style="text-align: center;">Scaling</h1>
     <p>
         We follow DiT and train IRASim-Frame-Ada of different model sizes ranging from 33M to 679M. 
-        Results are shown shown Fig. 4. 
+        Results are shown in Fig. 4. 
         On all three datasets, IRASim scales elegantly with the increase of model sizes and training steps. 
         This indicates strong potential for increasing model sizes and training steps to further improve the performance.
     </p>
@@ -299,7 +299,7 @@
             <img src="assets/images/scale.png">
             <div class="caption" style="margin-top: 0.0vw; margin-bottom: 0vw; text-align: center;">
                 <p>
-                    Figure 4: Scaling. IRASim scales elegantly with the increase of model sizes and training steps
+                    Figure 4: <strong>Scaling.</strong> IRASim scales elegantly with the increase of model sizes and training steps
                 </p>
             </div>
         </div>
@@ -311,9 +311,7 @@
 
     <p>
         To showcase the application of IRASim, we perform experiments on controlling the "real robots" in the three datasets of IRASim Benchmark. 
-        For Language-Table with a 2D translation action space, we use the arrow keys from the keyboard to input action trajectories. 
-        Note for language-table, IRASim can handle any curved 2D trajectory as input. 
-        We use the keyboard's arrow keys to simplify user interaction. 
+        For Language-Table with a 2D translation action space, we use the arrow keys from the keyboard to input action trajectories for better accessibility.
         For RT-1 and Bridge with a 3D action space, we use the Vive controller to record action trajectories as input. 
         The videos below show that IRASim can be used as an interactive real-robot action simulator in various ways. 
         In particular, IRASim is able to robustly handle multimodality in generation. 
