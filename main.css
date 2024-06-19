@@ -1526,6 +1526,15 @@ html.w-mod-touch * {
         height: 8vw;
         border-radius: 8vw;
     }
+    .button_click {
+        margin-top: 0.5vw;
+        font-size: 3vw;
+        margin-left: 4vw;
+        margin-right: 4vw;
+        width: 30vw;
+        height: 8vw;
+        border-radius: 8vw;
+    }
 
     hr.rounded {
         width: 90%;
