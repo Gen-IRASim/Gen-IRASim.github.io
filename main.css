@@ -1538,10 +1538,6 @@ html.w-mod-touch * {
         display: none;
     }
 
-    .author-container-1 {
-        display: none;
-    }
-
     .author-container-2 {
         display: none;
     }
@@ -1556,7 +1552,7 @@ html.w-mod-touch * {
     .mobile-author-container-2 {
         margin-top: 1vw;
         display: grid;
-        font-size: 3vw;
+        font-size: 15vw;
         grid-template-columns: 25vw 25vw 25vw 25vw;
     }
 
