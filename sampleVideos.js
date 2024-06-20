@@ -5,11 +5,11 @@ async function sample_short_videos() {
     videoGrid.innerHTML = '';
 
     const folders = [
-        { pred: 'assets/videos/uncurated/pred/sample/rt1', true: 'assets/videos/uncurated/true/sample/rt1', overlay: 'RT-1' },
-        { pred: 'assets/videos/uncurated/pred/sample/bridge', true: 'assets/videos/uncurated/true/sample/bridge', overlay: 'Bridge' },
-        { pred: 'assets/videos/uncurated/pred/sample/languagetable', true: 'assets/videos/uncurated/true/sample/languagetable', overlay: 'Language-Table' }
+        { video: 'assets/videos/uncurated/sample/rt1', overlay: 'RT-1' },
+        { video: 'assets/videos/uncurated/sample/bridge', overlay: 'Bridge' },
+        { video: 'assets/videos/uncurated/sample/languagetable', overlay: 'Language-Table' }
     ];
-    const totalVideos = 36;
+    const totalVideos = 100;
 
     // 获取8个唯一随机索引
     const indices = new Set();
@@ -30,7 +30,8 @@ async function sample_short_videos() {
                 <video autoplay muted playsinline loop>
                     <source src="${videoPath}" type="video/mp4">
                 </video>
-                <div class="overlay">Short Trajectory<br>${overlayText}</div>
+                <div class="overlay1 left">Short Trajectory<br>${overlayText}<br>Prediction</div>
+                <div class="overlay1 right">Short Trajectory<br>${overlayText}<br>Ground-truth</div>
             </div>
         `;
         return videoWrapper;
@@ -38,16 +39,13 @@ async function sample_short_videos() {
 
     folders.forEach(folder => {
         indices.forEach(index => {
-            const predVideoPath = `${folder.pred}/${index}.mp4`;
-            const trueVideoPath = `${folder.true}/${index}.mp4`;
+            const videoPath = `${folder.video}/${index}.mp4`;
 
-            console.log('Loading videos:', predVideoPath, trueVideoPath); // 调试信息
+            console.log('Loading videos:', videoPath); 
 
-            const videoWrapperPred = createVideoElement(predVideoPath, `${folder.overlay}<br>Prediction`);
-            const videoWrapperTrue = createVideoElement(trueVideoPath, `${folder.overlay}<br>Ground-truth`);
+            const videoWrapper = createVideoElement(videoPath, `${folder.overlay}`);
 
-            videoGrid.appendChild(videoWrapperPred);
-            videoGrid.appendChild(videoWrapperTrue);
+            videoGrid.appendChild(videoWrapper);
         });
     });
 }
@@ -59,11 +57,11 @@ async function sample_long_videos() {
     videoGrid.innerHTML = '';
 
     const folders = [
-        { pred: 'assets/videos/uncurated/pred/episode/rt1', true: 'assets/videos/uncurated/true/episode/rt1', overlay: 'RT-1' },
-        { pred: 'assets/videos/uncurated/pred/episode/bridge', true: 'assets/videos/uncurated/true/episode/bridge', overlay: 'Bridge' },
-        { pred: 'assets/videos/uncurated/pred/episode/languagetable', true: 'assets/videos/uncurated/true/episode/languagetable', overlay: 'Language-Table' }
+        { video: 'assets/videos/uncurated/episode/rt1', overlay: 'RT-1' },
+        { video: 'assets/videos/uncurated/episode/bridge', overlay: 'Bridge' },
+        { video: 'assets/videos/uncurated/episode/languagetable', overlay: 'Language-Table' }
     ];
-    const totalVideos = 36;
+    const totalVideos = 100;
 
     // 获取8个唯一随机索引
     const indices = new Set();
@@ -73,6 +71,9 @@ async function sample_long_videos() {
 
     console.log('Selected indices:', indices); // 调试信息
 
+    // 清空视频网格
+    videoGrid.innerHTML = '';
+
     function createVideoElement(videoPath, overlayText) {
         const videoWrapper = document.createElement('div');
         videoWrapper.className = 'video_wrapper';
@@ -81,7 +82,8 @@ async function sample_long_videos() {
                 <video autoplay muted playsinline loop>
                     <source src="${videoPath}" type="video/mp4">
                 </video>
-                <div class="overlay">Long Trajectory<br>${overlayText}</div>
+                <div class="overlay1 left">Long Trajectory<br>${overlayText}<br>Prediction</div>
+                <div class="overlay1 right">Long Trajectory<br>${overlayText}<br>Ground-truth</div>
             </div>
         `;
         return videoWrapper;
@@ -89,27 +91,15 @@ async function sample_long_videos() {
 
     folders.forEach(folder => {
         indices.forEach(index => {
-            const predVideoPath = `${folder.pred}/${index}.mp4`;
-            const trueVideoPath = `${folder.true}/${index}.mp4`;
+            const videoPath = `${folder.video}/${index}.mp4`;
 
-            // 增加更多的调试信息
-            console.log(`Attempting to load prediction video from: ${predVideoPath}`); // 调试信息
-            console.log(`Attempting to load ground-truth video from: ${trueVideoPath}`); // 调试信息
+            console.log('Loading videos:', videoPath); 
 
-            const videoWrapperPred = createVideoElement(predVideoPath, `${folder.overlay}<br>Prediction`);
-            const videoWrapperTrue = createVideoElement(trueVideoPath, `${folder.overlay}<br>Ground-truth`);
+            const videoWrapper = createVideoElement(videoPath, `${folder.overlay}`);
 
-            videoGrid.appendChild(videoWrapperPred);
-            videoGrid.appendChild(videoWrapperTrue);
-
-            // 验证元素是否被正确创建和添加
-            console.log(`Appended prediction video element for index ${index}`);
-            console.log(`Appended ground-truth video element for index ${index}`);
+            videoGrid.appendChild(videoWrapper);
         });
     });
-
-    // 最后再检查一次是否所有元素都被正确添加
-    console.log('Final video grid content:', videoGrid.innerHTML);
 }
 
 async function sample_longest_videos() {
@@ -120,8 +110,7 @@ async function sample_longest_videos() {
 
     const folders = [
         {
-            pred: 'assets/videos/uncurated/pred/episode/rt1',
-            true: 'assets/videos/uncurated/true/episode/rt1',
+            video: 'assets/videos/uncurated/episode/rt1',
             overlay: 'RT-1',
             frames: [
                 { idx: 75, frame_count: 153 },
@@ -133,8 +122,7 @@ async function sample_longest_videos() {
             ]
         },
         {
-            pred: 'assets/videos/uncurated/pred/episode/bridge',
-            true: 'assets/videos/uncurated/true/episode/bridge',
+            video: 'assets/videos/uncurated/episode/bridge',
             overlay: 'Bridge',
             frames: [
                 { idx: 79, frame_count: 79 },
@@ -146,8 +134,7 @@ async function sample_longest_videos() {
             ]
         },
         {
-            pred: 'assets/videos/uncurated/pred/episode/languagetable',
-            true: 'assets/videos/uncurated/true/episode/languagetable',
+            video: 'assets/videos/uncurated/episode/languagetable',
             overlay: 'Language-Table',
             frames: [
                 { idx: 38, frame_count: 48 },
@@ -161,7 +148,7 @@ async function sample_longest_videos() {
     ];
     
 
-    function createVideoElement(videoPath, overlayText) {
+    function createVideoElement(videoPath, overlayText, frame) {
         const videoWrapper = document.createElement('div');
         videoWrapper.className = 'video_wrapper';
         videoWrapper.innerHTML = `
@@ -169,7 +156,8 @@ async function sample_longest_videos() {
                 <video autoplay muted playsinline loop>
                     <source src="${videoPath}" type="video/mp4">
                 </video>
-                <div class="overlay">Long Trajectory<br>${overlayText}</div>
+                <div class="overlay1 left">Long Trajectory<br>${overlayText}<br> Prediction <br> ${frame}</div>
+                <div class="overlay1 right">Long Trajectory<br>${overlayText}<br> Ground-truth <br> ${frame}</div>
             </div>
         `;
         return videoWrapper;
@@ -177,23 +165,13 @@ async function sample_longest_videos() {
 
     folders.forEach(folder => {
         folder.frames.forEach(frame => {
-            console.log(frame); // 调试信息
-            const predVideoPath = `${folder.pred}/${frame.idx}.mp4`;
-            const trueVideoPath = `${folder.true}/${frame.idx}.mp4`;
+            console.log(frame); 
+            const predVideo = `${folder.video}/${frame.idx}.mp4`
+            console.log(`Attempting to load prediction video from: ${predVideo}`); 
 
-            // 增加更多的调试信息
-            console.log(`Attempting to load prediction video from: ${predVideoPath}`); // 调试信息
-            console.log(`Attempting to load ground-truth video from: ${trueVideoPath}`); // 调试信息
+            const videoWrapper = createVideoElement(predVideo, `${folder.overlay}`, `${frame.frame_count} frames`);
 
-            const videoWrapperPred = createVideoElement(predVideoPath, `${folder.overlay}<br>Prediction <br> ${frame.frame_count} frames`);
-            const videoWrapperTrue = createVideoElement(trueVideoPath, `${folder.overlay}<br>Ground-truth <br> ${frame.frame_count} frames`);
-
-            videoGrid.appendChild(videoWrapperPred);
-            videoGrid.appendChild(videoWrapperTrue);
-
-            // 验证元素是否被正确创建和添加
-            console.log(`Appended prediction video element for index ${frame.idx}`);
-            console.log(`Appended ground-truth video element for index ${frame.idx}`);
+            videoGrid.appendChild(videoWrapper);
         });
     });
 

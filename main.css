@@ -20,7 +20,7 @@ body {
 }
 
 #video_grid > .video_wrapper {
-    width: 25%;
+    width: 50%;
 }
 
 #video_grid > .video_wrapper > .video_container {
@@ -84,7 +84,7 @@ body {
 }
 
 #app_3D_video_grid > .video_wrapper {
-    width: 50%;
+    width: 100%;
     padding: 1px; /* 添加内边距 */
     box-sizing: border-box; /* 确保内边距包含在宽度内 */
 }
@@ -116,7 +116,7 @@ body {
 }
 
 #uncurated_short_video_grid > .video_wrapper {
-    width: 16.6666666%;
+    width: 33.33333333%;
     padding: 1px; /* 添加内边距 */
     box-sizing: border-box; /* 确保内边距包含在宽度内 */
 }
@@ -148,7 +148,7 @@ body {
 }
 
 #uncurated_long_video_grid > .video_wrapper {
-    width: 16.6666666%;
+    width: 33.3333333%;
     padding: 1px; /* 添加内边距 */
     box-sizing: border-box; /* 确保内边距包含在宽度内 */
 }
@@ -170,6 +170,36 @@ body {
     transition: transform 0.5s ease; /* Smooth transition for dimming */
 }
 
+.overlay1 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%; /* Each overlay takes up half the width */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* Allows clicking 'through' the overlay */
+    font-family: 'Arial', sans-serif; /* Example font family */
+    font-size: 20px; /* Example font size */
+    text-align: center; /* Centers text horizontally */
+    padding: 10px; /* Adds padding to prevent text touching the edges */
+}
+
+.overlay1.left {
+    left: 0; /* Position at the left half */
+}
+
+.overlay1.right {
+    right: 0; /* Position at the right half */
+}
+
+.video_container:hover .overlay1 {
+    opacity: 1; /* Show the overlay on hover */
+}
 
 .overlay {
     position: absolute;
@@ -312,7 +342,7 @@ body {
     text-align: center;
 }
 
-.berkeley {
+.institution {
     color: #2f2f2f;
     font-family: Gelasio,"Avenir Next",Helvetica,sans-serif;
     font-weight: normal;
@@ -1535,7 +1565,7 @@ html.w-mod-touch * {
         padding-top: 5vw;
     }
     
-    .berkeley {
+    .institution {
         margin-top: 0.5vw;
         padding-top: 0.5vw; 
         font-size: 3vw;
