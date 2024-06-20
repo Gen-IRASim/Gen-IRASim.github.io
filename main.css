@@ -1549,8 +1549,8 @@ html.w-mod-touch * {
     .mobile-author-container-1 {
         display: grid;
         margin-top: 5vw;
-        font-size: 3vw;
-        grid-template-columns: 25vw 25vw 25vw 25vw 25vw;
+        font-size: 5vw;
+        /* grid-template-columns: 25vw 25vw 25vw 25vw 25vw; */
     }
 
     .mobile-author-container-2 {
