@@ -1538,6 +1538,10 @@ html.w-mod-touch * {
         display: none;
     }
 
+    .author-container-1 {
+        display: grid;
+    }
+
     .author-container-2 {
         display: none;
     }
