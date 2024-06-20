@@ -1550,7 +1550,7 @@ html.w-mod-touch * {
         display: grid;
         margin-top: 5vw;
         font-size: 3vw;
-        grid-template-columns: 25vw 25vw 25vw 25vw;
+        grid-template-columns: 25vw 25vw 25vw 25vw 25vw;
     }
 
     .mobile-author-container-2 {
@@ -1581,6 +1581,16 @@ html.w-mod-touch * {
         border-radius: 8vw;
     }
     .button_click {
+        margin-top: 0.5vw;
+        font-size: 3vw;
+        margin-left: 4vw;
+        margin-right: 4vw;
+        width: 30vw;
+        height: 8vw;
+        border-radius: 8vw;
+    }
+
+    .button_click_long {
         margin-top: 0.5vw;
         font-size: 3vw;
         margin-left: 4vw;
