@@ -1484,7 +1484,7 @@ html.w-mod-touch * {
 @media only screen and (max-width: 1000px) {
 
     #video_grid {
-        display: none;
+        display: grid;
     }
 
     #title_slide {
