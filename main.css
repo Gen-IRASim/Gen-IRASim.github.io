@@ -1484,10 +1484,33 @@ html.w-mod-touch * {
 @media only screen and (max-width: 1000px) {
 
     #video_grid {
-        display: grid;
-        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
     }
-
+    
+    #video_grid > .video_wrapper {
+        width: 50%;
+    }
+    
+    #video_grid > .video_wrapper > .video_container {
+        display: grid;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #video_grid > .video_wrapper > .video_container > video {
+        width: 100%;
+        height: auto;
+        grid-column: 1;
+        grid-row: 1;
+        margin: 0;
+        padding: 0;
+        display: block; /* Ensures the video fills its container */
+        transition: transform 0.5s ease; /* Smooth transition for dimming */
+    }
+    
     #title_slide {
         flex-wrap: wrap;
     }
