@@ -1485,6 +1485,7 @@ html.w-mod-touch * {
 
     #video_grid {
         display: grid;
+        width: 100%;
     }
 
     #title_slide {
