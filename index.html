@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 10px;
+            text-align: center;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 修改这行 */
+        }
+
+        .item img,
+        .item video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .header {
+            grid-column: span 7;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .start-goal {
+            display: flex;
+            flex-direction: column;
+            /* 修改这行 */
+            justify-content: space-between;
+            align-items: center;
+            grid-row: span 2;
+            display: block;
+
+        }
+
+        .start-goal img {
+            margin: 0;
+            /* 确保没有额外的边距 */
+        }
+
+            * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        .planning-container {
+        width: 75%;
+        margin: 0 auto;
+        }
+        
+        .planning-section-header {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: bold;
+        }
+        
+        .planning-description {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        }
+        
+        .planning-video-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px; /* 行和列间距均为10px，根据需要调整 */
+        margin-bottom: 30px;
+        }
+        
+        .planning-video-grid video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        }
+
+    </style>
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <title>IRASim: A Fine-Grained World Model for Robot Manipulation
+    </title>
+</head>
+
+<body>
+    <div id="video_grid">
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/short/rt1.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Short Trajectory<br>RT-1<br>Prediction</div>
+                <div class="overlay1 right">Short Trajectory<br>RT-1<br>Ground-truth</div>
+            </div>
+        </div>
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/long/rt1.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Long Trajectory<br>RT-1<br>Prediction</div>
+                <div class="overlay1 right">Long Trajectory<br>RT-1<br>Ground-truth</div>
+            </div>
+        </div>
+
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/short/bridge.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Short Trajectory<br>Bridge<br>Prediction</div>
+                <div class="overlay1 right">Short Trajectory<br>Bridge<br>Ground-truth</div>
+            </div>
+        </div>
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/long/bridge.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Long Trajectory<br>Bridge<br>Prediction</div>
+                <div class="overlay1 right">Long Trajectory<br>Bridge<br>Ground-truth</div>
+            </div>
+        </div>
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/short/languagetable.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Short Trajectory<br>Language-Table<br>Prediction</div>
+                <div class="overlay1 right">Short Trajectory<br>Language-Table<br>Ground-truth</div>
+            </div>
+        </div>
+        <div class="video_wrapper">
+            <div class="video_container">
+                <video autoplay muted playsinline loop>
+                    <source src="assets/videos/long/languagetable.mp4" type="video/mp4">
+                </video>
+                <div class="overlay1 left">Long Trajectory<br>Language-Table<br>Prediction</div>
+                <div class="overlay1 right">Long Trajectory<br>Language-Table<br>Ground-truth</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="title_slide">
+        <div class="title_left">
+            <h1 style="text-align: center;">IRASim: A Fine-Grained World Model for Robot Manipulation</h1>
+            <!-- <div class="author-container-1">
+                <div class="grid-item"><a href="https://fangqi-zhu.github.io/">Fangqi Zhu</a><sup>1,2</sup>,</div>
+                <div class="grid-item"><a href="https://scholar.google.com/citations?user=7u0TYgIAAAAJ&hl=zh-CN&oi=ao">Hongtao Wu</a><sup>1&dagger;*</sup>,</div>
+                <div class="grid-item"><a href="https://cse.hkust.edu.hk/~songguo/">Song Guo</a><sup>2*</sup>,</div>
+                <div class="grid-item"><a href="https://scholar.google.com/citations?hl=zh-CN&user=i8wNtSgAAAAJ">Yuxiao Liu</a><sup>1</sup>,</div>
+                <div class="grid-item"><a href="Gen-IRASim.github.io">Chilam Cheang</a><sup>1</sup>,</div>
+                <div class="grid-item"><a href="https://www.taokong.org/">Tao Kong</a><sup>1</sup></div>
+            </div>
+            <div class="institution">
+                <div class="grid-item"><sup>1</sup>ByteDance Seed</div> <div class="grid-item"><sup>2</sup>Hong Kong University of Science and Technology (HKUST)</div>
+            </div>
+            <div class="institution">
+                <div class="grid-item"><sup>*</sup>Corresponding Authors</div>
+                <div class="grid-item"><sup>&dagger;</sup>Project Lead</div>
+            </div>
+            <div class="button-container">
+                <a href="https://arxiv.org/pdf/2406.14540" class="button">arXiv</a>
+                <a href="https://github.com/bytedance/IRASim.git" class="button">Code</a>
+            </div>
+     -->
+            <div class="author-container-1">
+                <div class="grid-item"><a href="https://fangqi-zhu.github.io/">Fangqi Zhu</a><sup>1,2</sup>,</div>
+                <div class="grid-item"><a href="https://scholar.google.com/citations?user=7u0TYgIAAAAJ&hl=zh-CN&oi=ao">Hongtao Wu</a><sup>2&dagger;*</sup>,</div>
+                <div class="grid-item"><a href="https://cse.hkust.edu.hk/~songguo/">Song Guo</a><sup>1*</sup>,</div>
+                <div class="grid-item"><a href="https://scholar.google.com/citations?hl=zh-CN&user=i8wNtSgAAAAJ">Yuxiao Liu</a><sup>2</sup>,</div>
+                <div class="grid-item"><a href="Gen-IRASim.github.io">Chilam Cheang</a><sup>2</sup>,</div>
+                <div class="grid-item"><a href="https://www.taokong.org/">Tao Kong</a><sup>2</sup></div>
+            </div>
+            <div class="institution">
+                <div class="grid-item"><sup>1</sup>Hong Kong University of Science and Technology (HKUST)</div>
+                <div class="grid-item"><sup>2</sup>ByteDance Seed</div>
+            </div>
+            <div class="institution">
+                <div class="grid-item"><sup>*</sup>Corresponding Authors</div>
+                <div class="grid-item"><sup>&dagger;</sup>Project Lead</div>
+            </div>
+            <div class="button-container">
+                <a href="https://arxiv.org/pdf/2406.14540" class="button">arXiv</a>
+                <a href="https://github.com/bytedance/IRASim.git" class="button">Code</a>
+            </div>
+    
+            <br>
+
+            <div id="abstract" class="grid-container">
+                <p>
+                    World models allow autonomous agents to plan and explore by predicting the visual outcomes of
+                    different actions.
+                    However, for robot manipulation, it is challenging to accurately model the fine-grained robot-object
+                    interaction within the visual space using existing methods which overlooks precise alignment between
+                    each action and the corresponding frame.
+                    In this paper, we present IRASim, a novel world model capable of generating videos with fine-grained
+                    robot-object interaction details, conditioned on historical observations and robot action
+                    trajectories.
+                    We train a diffusion transformer and introduce a novel frame-level action-conditioning module within
+                    each transformer block to explicitly model and strengthen the action-frame alignment.
+                    Extensive experiments show that: (1) the quality of the videos generated by our method surpasses all
+                    the comparing baseline methods and scales effectively with increased model size and computation; (2)
+                    policy evaluations using IRASim exhibit a strong correlation with those using the ground-truth
+                    simulator, highlighting its potential to accelerate real-world policy evaluation; (3) testing-time
+                    scaling through model-based planning with IRASim significantly enhances policy performance, as
+                    evidenced by an improvement in the IoU metric on the Push-T benchmark from 0.637 to 0.961; (4)
+                    IRASim provides flexible action controllability, allowing virtual robotic arms in datasets to be
+                    controlled via a keyboard or VR controller.
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr class="rounded">
+    <div id="overview">
+
+        <h1 style="text-align: center; margin-top: 30px; font-size: 30px;">Video Generation as World Model</h1>
+
+        <p>
+            We introduce IRASim, a new world model trained with a diffusion transformer to capture complex environment
+            dynamics.
+            We incorporate a novel frame-level action-conditioning module within each transformer block, explicitly
+            modeling and strengthening the alignment between each action and the corresponding frame.
+            IRASim can generate high-fidelity videos to simulate fine-grained robot-object interactions, as shown in
+            Fig. 1.
+            To generate a long-horizon video that completes an entire task, IRASim can be rolled out in an
+            autoregressive manner and maintain temporal consistency across each generated video clip.
+        </p>
+
+
+
+        <div class="barplot">
+            <div class="image_container">
+                <img src="assets/images/intro.png">
+                <div class="caption" style="margin-top: 0.0vw">
+                    <p>Figure 1: IRASim is a fine-grained world model for robot manipulation. It generates high-fidelity
+                        videos that simulate accurate robot-object interactions of a robot executes an action
+                        trajectory, given historical observation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <h1 style="text-align: center;">Trajectory-conditioned Video Generation</h1>
+
+    <p>
+        IRASim is a novel method that generates extremely realistic videos of a robot that executes an action trajectory, starting from a given initial frame.
+        We refer to this task as the <em>trajectory-to-video</em> task.
+        The trajectory-to-video task differs from the general text-to-video task. 
+        While various videos can meet the text condition in the text-to-video task, the predicted video in our trajectory-to-video task must strictly and accurately follow the input trajectory.
+        More importantly, a challenge of this task is that each action in the trajectory provides an exact description of the robot's movement in each frame.
+        This contrasts with the text-to-video task, where textual descriptions offer a general condition without specific frame-by-frame details.
+        Another challenge is that the trajectory-to-video task features rich robot-object interactions, which must adhere to physical laws.
+        IRASim leverages an innovative frame-level condition method to achieve precise frame-by-frame alignment between actions and video frames. 
+        We use the powerful Diffusion Transformer as the backbone of IRASim to improve the modeling of robot-object interactions. 
+        <strong>IRASim can generate realistic videos of high-resolution (up to 288 × 512) and long-horizon (up to 150+ frames).</strong>
+
+    </p>
+
+    <div class="barplot">
+        <div class="image_container">
+            <img src="assets/images/network.png">
+            <div class="caption" style="margin-top: 0.0vw">
+                <p>
+                    Figure 2: <strong>Network Architecture of IRASim.</strong> (a) shows the general diffusion transformer architecture of IRASim. The input to IRASim
+                    includes the historical frames and the given trajectory. (b) Video-level adaptation (Video-Ada). (c) Frame-level adaptation (Frame-Ada).
+                </p>
+            </div>
+        </div>
+    </div> -->
+
+        <h1 style="text-align: center;  margin-top: 30px; font-size: 30px;">Short Trajectory Prediction</h1>
+        <p>
+            <strong>Uncurated</strong> qualitative results of short trajectories are shown below.
+            Click the <em>Click to View More</em> button to display another random subset from 100 unpicked samples for
+            each dataset.
+            All samples are from the test set.
+            Each video contains 16 frames with 4 fps.
+            The video on the <strong>left</strong> is generated by IRASim, while the video on the <strong>right</strong> is the ground truth.
+        </p>
+        </br>
+        <div class="button-container">
+            <div class="button_click" style="padding: 10px 20px; margin: -30px 20px 20px 20px;"
+                onclick="sample_short_videos()">Click to View More</div>
+        </div>
+        <div id="uncurated_short_video_grid"></div>
+        <br>
+
+
+        <h1 style="text-align: center; margin-top: 30px; font-size: 30px;">Long Trajectory Prediction</h1>
+        <p>
+            <strong>Uncurated</strong> qualitative results of long trajectories are shown below.
+            Click the <em>Click to View More</em> button to display another random subset from 100 unpicked episodes for
+            each dataset.
+            Click the <em>Click to View Very Long Videos</em> button to display the six longest videos from the 100
+            unpicked episodes.
+            Hover over on these longest videos to see their number of frames.
+            All episodes are from the test set.
+            The average number of frames of the 100 unpicked episodes are 47.04, 36.43, and 24.57 for RT-1, Bridge, and
+            Language-Table, respectively.
+            The video on the <strong>left</strong> is generated by IRASim; the video on the <strong>right</strong> is the ground truth.
+            IRASim retains the powerful capability of generating visually realistic and accurate videos of long-horizon
+            as in the short trajectory setting.
+        </p>
+        </br>
+        <div class="button-container">
+            <div class="button_click" style="padding: 10px 20px; margin: -30px 20px 20px 20px;"
+                onclick="sample_long_videos()">Click to View More</div>
+            <div class="button_click_long" style="padding: 10px 20px; margin: -30px 20px 20px 20px;"
+                onclick="sample_longest_videos()">Click to View Very Long Videos</div>
+        </div>
+        <div id="uncurated_long_video_grid"></div>
+        <br>
+
+        <h1 style="text-align: center;  margin-top: 30px; font-size: 30px;">Policy Evaluation</h1>
+        <p>
+            Policy Evaluation with IRASim. IRASim can simulate
+            both successful and failed rollouts. Notably, it is able to simulate a
+            bowl slipping from the gripper. <strong>The following video was rolled out with IRASim using a diffusion policy</strong>.
+        </p>
+
+
+        <div class="button-container">
+            <div class="button_click" style="padding: 0px 0px; margin: 20px 20px 20px 20px;"
+                onclick="sample_evaluation_videos()">Click to View More</div>
+        </div>
+        <div id="evaluation_video_grid"></div>
+
+
+        <h1 class="planning-section-header">Real-Robot Model-based Planning Experiment</h1>
+        <p>
+            We conduct a real-robot model-based planning experiment to show the usefulness of IRASim for manipulation task.
+            The experiment demonstrates that IRASim can effectively plan trajectories to finish manipulation tasks by predicting the outcomes of executing different candidate trajectories.
+        </p>
+        <p style="margin-bottom: 30px;">
+            <b>Video results:</b> We demonstrate the visual outcomes predicted by IRASim (<strong>top</strong>) and the actual visual outcomes of execution in the video (<strong>bottom</strong>) below.
+            Our results include IRASim (ResNet), IRASim (MSE), and a random policy.
+            Different policies choose different trajectories for execution.
+            We also present both successful and failed outcomes.
+            The evaluation covers three tasks: closing a drawer, placing mandarin on green plate, and placing mandarin on red plate.
+        </p>
+
+        <div class="planning-container">
+
+        <p class="planning-description"><strong>Top videos in each row are real rollouts; bottom videos are predicted by IRASim.</strong></p>
+
+        <!-- 第一组视频 -->
+        <div class="planning-video-grid">
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/resnet/43_success.mp4" type="video/mp4">
+            43_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/resnet/48_fail.mp4" type="video/mp4">
+            48_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/mse/45_success.mp4" type="video/mp4">
+            45_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/mse/30_fail.mp4" type="video/mp4">
+            30_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/random/43_success.mp4" type="video/mp4">
+            43_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/close_drawer/random/30_fail.mp4" type="video/mp4">
+            30_fail.mp4
+            </video>
+        </div>
+
+        <!-- 第二组视频 -->
+        <div class="planning-video-grid">
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/resnet/39_success.mp4" type="video/mp4">
+            39_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/resnet/46_fail.mp4" type="video/mp4">
+            46_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/mse/40_success.mp4" type="video/mp4">
+            40_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/mse/44_fail.mp4" type="video/mp4">
+            44_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/random/42_success.mp4" type="video/mp4">
+            42_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_green/random/16_fail.mp4" type="video/mp4">
+            16_fail.mp4
+            </video>
+        </div>
+
+        <!-- 第三组视频 -->
+        <div class="planning-video-grid">
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/resnet/30_success.mp4" type="video/mp4">
+            30_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/resnet/44_fail.mp4" type="video/mp4">
+            44_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/mse/32_success.mp4" type="video/mp4">
+            32_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/mse/21_fail.mp4" type="video/mp4">
+            21_fail.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/random/31_success.mp4" type="video/mp4">
+            31_success.mp4
+            </video>
+            <video autoplay muted loop>
+            <source src="assets/videos/planning/place_red/random/2_fail.mp4" type="video/mp4">
+            2_fail.mp4
+            </video>
+        </div>
+        </div>
+
+        <h1 style="text-align: center;  margin-top: 30px; font-size: 30px;">
+            Flexible Action Controllability
+        </h1>
+
+        <p>
+            In this section, we perform qualitative experiments in which we ''control'' the virtual robot in two
+            datasets, Language-Table and RT-1, using trajectories collected with two distinct input sources: a keyboard
+            and a VR controller.
+            Notably, the trajectories collected through these input sources exhibit distributions that deviate from
+            those in the original dataset.
+            For Language-Table with a 2D translation action space, we use the arrow keys on the keyboard to input action
+            trajectories.
+            For RT-1 with a 3D action space, we use a VR controller to collect action trajectories as input.
+            Specifically, we prompt IRASim with an image from each dataset and a trajectory collected with the keyboard
+            or VR controller.
+            IRASim is able to follow trajectories collected with different input sources and simulate robot-object
+            interaction in a realistic and reasonable way.
+            More importantly, it is able to robustly handle multimodality in generation.
+        </p>
+
+        <h2 style="text-align: center; margin: 20px 20px 20px 20px; font-weight: normal; font-size: 1.2vw">"Controlling"
+            the Robot in Language-Table with a Keyboard</h2>
+
+        <div id="app_3D_video_grid">
+            <div class="video_wrapper">
+                <div class="video_container">
+                    <video autoplay muted playsinline loop>
+                        <source src="assets/videos/application/app_languagetable.mp4" type="video/mp4">
+                    </video>
+                    <div class="overlay1 left">Language-Table <br> Prediction <br>16 frames </div>
+                    <div class="overlay1 right">Language-Table <br> Prediction <br>16 frames </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 style="text-align: center; margin: 20px 20px 20px 20px; font-weight: normal; font-size: 1.2vw">"Controlling"
+            the Robot in RT-1 with a VR Controller</h2>
+
+        <div id="app_3D_video_grid">
+            <div class="video_wrapper">
+                <div class="video_container">
+                    <video autoplay muted playsinline loop>
+                        <source src="assets/videos/application/app_rt1.mp4" type="video/mp4">
+                    </video>
+                    <div class="overlay1 left">RT-1 <br> Prediction <br> 47 frames </div>
+                    <div class="overlay1 right">RT-1 <br> Ground-truth <br> 47 frames </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin: 20px 20px 20px 20px; font-weight: normal; font-size: 1.2vw">"Controlling"
+            the Robot in Bridge with a VR Controller</h2>
+
+        <div id="app_3D_video_grid">
+            <div class="video_wrapper">
+                <div class="video_container">
+                    <video autoplay muted playsinline loop>
+                        <source src="assets/videos/application/app_bridge.mp4" type="video/mp4">
+                    </video>
+                    <div class="overlay1 left">Bridge <br> Prediction <br> 17 frames</div>
+                    <div class="overlay1 right">Bridge <br> Ground-truth <br> 17 frames</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="sampleVideos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            sample_short_videos();
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            sample_long_videos();
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            sample_evaluation_videos();
+        });
+    </script>
+    <script type="text/javascript">
+        /* https://stackoverflow.com/questions/3027707/how-to-change-the-playing-speed-of-videos-in-html5 */
+        document.querySelector('video').defaultPlaybackRate = 1.0;
+        document.querySelector('video').play();
+
+        var videos = document.querySelectorAll('video');
+        for (var i = 0; i < 1; i++) {
+            videos[i].playbackRate = 1.0;
+        }
+    </script>
+    <script>
+        /* https://stackoverflow.com/questions/21163756/html5-and-javascript-to-play-videos-only-when-visible */
+        var videos = document.getElementsByTagName("video");
+
+        function checkScroll() {
+            var fraction = 0.5; // Play when 70% of the player is visible.
+
+            for (var i = 0; i < 1; i++) {  // only apply to the first video
+
+                var video = videos[i];
+
+                var x = video.offsetLeft, y = video.offsetTop, w = video.offsetWidth, h = video.offsetHeight, r = x + w, //right
+                    b = y + h, //bottom
+                    visibleX, visibleY, visible;
+
+                visibleX = Math.max(0, Math.min(w, window.pageXOffset + window.innerWidth - x, r - window.pageXOffset));
+                visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
+
+                visible = visibleX * visibleY / (w * h);
+
+                if (visible > fraction) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+
+            }
+
+        }
+        window.addEventListener('scroll', checkScroll, false);
+        window.addEventListener('resize', checkScroll, false);
+    </script>
+    <script>
+        // Function to check if the user is on a mobile device
+        function isMobileDevice() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        // If the user is on a mobile device, disable autoplay
+        if (isMobileDevice()) {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.autoplay = false;
+            });
+        }
+    </script>
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=51e0d73d83d06baa7a00000f"
+        type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+    <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"
+        type="text/javascript"></script>
+</body>
+
+</html>
