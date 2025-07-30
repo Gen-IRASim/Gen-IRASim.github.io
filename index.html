@@ -158,27 +158,6 @@
     <div id="title_slide">
         <div class="title_left">
             <h1 style="text-align: center;">IRASim: A Fine-Grained World Model for Robot Manipulation</h1>
-            <p style="text-align: center; font-size: 1.2em; color: #007acc; font-weight: bold;">Accepted to ICCV 2025</p>
-            <!-- <div class="author-container-1">
-                <div class="grid-item"><a href="https://fangqi-zhu.github.io/">Fangqi Zhu</a><sup>1,2</sup>,</div>
-                <div class="grid-item"><a href="https://scholar.google.com/citations?user=7u0TYgIAAAAJ&hl=zh-CN&oi=ao">Hongtao Wu</a><sup>1&dagger;*</sup>,</div>
-                <div class="grid-item"><a href="https://cse.hkust.edu.hk/~songguo/">Song Guo</a><sup>2*</sup>,</div>
-                <div class="grid-item"><a href="https://scholar.google.com/citations?hl=zh-CN&user=i8wNtSgAAAAJ">Yuxiao Liu</a><sup>1</sup>,</div>
-                <div class="grid-item"><a href="Gen-IRASim.github.io">Chilam Cheang</a><sup>1</sup>,</div>
-                <div class="grid-item"><a href="https://www.taokong.org/">Tao Kong</a><sup>1</sup></div>
-            </div>
-            <div class="institution">
-                <div class="grid-item"><sup>1</sup>ByteDance Seed</div> <div class="grid-item"><sup>2</sup>Hong Kong University of Science and Technology (HKUST)</div>
-            </div>
-            <div class="institution">
-                <div class="grid-item"><sup>*</sup>Corresponding Authors</div>
-                <div class="grid-item"><sup>&dagger;</sup>Project Lead</div>
-            </div>
-            <div class="button-container">
-                <a href="https://arxiv.org/pdf/2406.14540" class="button">arXiv</a>
-                <a href="https://github.com/bytedance/IRASim.git" class="button">Code</a>
-            </div>
-     -->
             <div class="author-container-1">
                 <div class="grid-item"><a href="https://fangqi-zhu.github.io/">Fangqi Zhu</a><sup>1,2</sup>,</div>
                 <div class="grid-item"><a href="https://scholar.google.com/citations?user=7u0TYgIAAAAJ&hl=zh-CN&oi=ao">Hongtao Wu</a><sup>2&dagger;*</sup>,</div>
@@ -195,11 +174,15 @@
                 <div class="grid-item"><sup>*</sup>Corresponding Authors</div>
                 <div class="grid-item"><sup>&dagger;</sup>Project Lead</div>
             </div>
+            <div class="institution">
+                <div class="grid-item" style="font-weight: bold; color: red;">Accepted to ICCV 2025</div>
+            </div>
+
             <div class="button-container">
                 <a href="https://arxiv.org/pdf/2406.14540" class="button">arXiv</a>
                 <a href="https://github.com/bytedance/IRASim.git" class="button">Code</a>
             </div>
-    
+
             <br>
 
             <div id="abstract" class="grid-container">
@@ -341,18 +324,28 @@
         </div>
         <div id="evaluation_video_grid"></div>
 
-
-        <h1 class="planning-section-header">Real-Robot Model-based Planning Experiment</h1>
+        <h1 class="planning-section-header">Simulated Model-Based Planning Experiment</h1>
         <p>
-            We conduct a real-robot model-based planning experiment to show the usefulness of IRASim for manipulation task.
-            The experiment demonstrates that IRASim can effectively plan trajectories to finish manipulation tasks by predicting the outcomes of executing different candidate trajectories.
+        We conduct experiments on the Push-T benchmark to demonstrate that IRASim can serve as a world model for model-based planning, enhancing the performance of vanilla manipulation policies. Specifically, we adapt a simple ranking algorithm for planning: (1) sample K trajectories from the policy, (2) simulate each trajectory using IRASim, and (3) select the one with the highest predicted value for execution.
+        </p>
+
+        <div class="barplot">
+            <div class="image_container">
+                <img src="assets/images/pusht.png">
+                <div class="caption" style="margin-top: 0.0vw">
+                    <p>
+                    Figure 3. IRASim simulates the visual outcomes of candidate trajectories sampled from the policy and predicts the value of the final frame using a reward model. By selecting and executing the trajectory with the highest predicted value, we improve policy performance by leveraging additional test-time computation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="planning-section-header">Real-World Model-Based Planning Experiment</h1>
+        <p>
+        We further evaluate IRASim in a real-world manipulation setting, showing that it can effectively plan trajectories by predicting the outcomes of candidate executions. The experiment validates IRASim’s utility in guiding real-robot decision-making.
         </p>
         <p style="margin-bottom: 30px;">
-            <b>Video results:</b> We demonstrate the visual outcomes predicted by IRASim (<strong>top</strong>) and the actual visual outcomes of execution in the video (<strong>bottom</strong>) below.
-            Our results include IRASim (ResNet), IRASim (MSE), and a random policy.
-            Different policies choose different trajectories for execution.
-            We also present both successful and failed outcomes.
-            The evaluation covers three tasks: closing a drawer, placing mandarin on green plate, and placing mandarin on red plate.
+        <b>Video results:</b> The video below presents the visual outcomes predicted by IRASim (<strong>top</strong>) and the actual outcomes of real-world execution (<strong>bottom</strong>). Our comparison includes IRASim (ResNet), IRASim (MSE), and a random policy. Each policy selects different trajectories for execution. Both successful and failed outcomes are shown across three tasks: (1) closing a drawer, (2) placing a mandarin on a green plate, and (3) placing a mandarin on a red plate.
         </p>
 
         <div class="planning-container">
